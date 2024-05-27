@@ -1,9 +1,6 @@
 "use client";
-import useRegisterModel from "@/Hooks/useRegister";
-import axios from "axios";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
-  FieldValue,
   FieldValues,
   SubmitHandler,
   useForm,
@@ -15,13 +12,18 @@ import useRentModel from "@/Hooks/useRent";
 import { CategoriesDetails } from "../Navbar/Categories";
 import CategoryInput from "../CategoryInput";
 import CountrySelect from "../CountrySelect";
+import Counter from "../Input/Counter";
+import ImageUpload from "../Input/ImageUpload";
+import Input from "../Input/Input";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 enum Steps {
   CATEGORY = 0,
   LOCATION = 1,
   INFO = 2,
   IMAGES = 3,
-  DESCRIPTION = 5,
+  DESCRIPTION = 4,
   PRICE = 5,
 }
 
@@ -74,10 +76,35 @@ const RentModel = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if(step !== Steps.PRICE){
+      return onNext(); 
+    }
+
+    setIsLoading(true);
+
+    axios.post('/api/listing',data).then((response) => {
+      toast.success("Listing Created!")
+      router.refresh();
+      setStep(Steps.CATEGORY)
+      RentModel.onClose()
+    }).catch((error) => {
+      toast.error(error.message);
+      console.log(error);
+    }).finally(() => {
+      setIsLoading(false);
+    });
+  };
 
   const WatchCategory = watch("category");
-
+  const WatchLocation = watch("location");
+  const WatchGuestCount = watch("guestCount");
+  const WatchRoomCount = watch("roomCount");
+  const WatchBathroomsCount = watch("bathroomCount");
+  const ImageSrc = watch("imageSrc");
+  const parsedGuestCount = parseInt(WatchGuestCount, 10) || 0;
+  const parsedRoomsCount = parseInt(WatchRoomCount, 10) || 0;
+  const parsedBathroomCount = parseInt(WatchBathroomsCount, 10) || 0;
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldTouch: true,
@@ -116,9 +143,111 @@ const RentModel = () => {
           center={false}
           subTitle="Help guests find you ?"
         />
-        <CountrySelect onChange={}/>
+        <CountrySelect value={WatchLocation} onChange={(value)=> setCustomValue("location",value)}/>
       </div>
     );
+  }
+
+  if (step == Steps.INFO) {
+    body = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share Some Basic About Your Place"
+          center={false}
+          subTitle="WHat Amenitites Do you Have  ?"
+        />
+          <Counter
+                value={parsedGuestCount}
+                onChange={(value) => {
+                    setCustomValue("guestCount", value);
+                }}
+                title="Number of Guests"
+                subtitle="How Many Guests?"
+            />
+          <Counter
+                value={parsedRoomsCount}
+                onChange={(value) => {
+                    setCustomValue("roomCount", value);
+                }}
+                title="Number of Rooms"
+                subtitle="How Many Rooms DO you Have?"
+            />
+          <Counter
+                value={parsedBathroomCount}
+                onChange={(value) => {
+                    setCustomValue("bathroomCount", value);
+                }}
+                title="Number of Bathrooms"
+                subtitle="How Many Bathrooms Do you have?"
+            />
+      </div>
+    );
+  }
+
+  if (step == Steps.IMAGES) {
+    body = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Add Photo of Your Place"
+          center={false}
+          subTitle="Show Your Place Please?"
+        />
+          <ImageUpload value={ImageSrc} 
+           onChange={(value) => {
+            setCustomValue("imageSrc", value);
+        }}
+          />
+      </div>
+      )
+  }
+
+  if (step == Steps.DESCRIPTION) {
+    body = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Would You like to Describe Your Place ?"
+          center={false}
+          subTitle="Short and Sweet Works Best!?"
+        />
+          <Input
+          id="title"
+          labal="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+          />
+          <Input
+          id="description"
+          labal="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+          />
+      </div>
+      )
+  }
+
+  if (step == Steps.PRICE) {
+    body = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Please Set-Up Your Price ?"
+          center={false}
+          subTitle="How Do You Charge Per Night?"
+        />
+          <Input
+          id="pyrice"
+          labal="Price"
+          disabled={isLoading}
+          type="number"
+          register={register}
+          errors={errors}
+          required
+          />
+      </div>
+      )
   }
 
   let footer = (
@@ -138,7 +267,7 @@ const RentModel = () => {
       footer={footer}
       secoundaryActionLabel={secondaryActionLable}
       secondaryAction={step === Steps.CATEGORY ? undefined : onBack}
-      onSubmit={onNext}
+      onSubmit={handleSubmit(onSubmit)}
     />
   );
 };
