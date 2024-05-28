@@ -1,5 +1,5 @@
 "use client"
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Listing, Reservation } from "@prisma/client"
 import { SafeUser } from '@/types';
 import { useRouter } from "next/navigation"
@@ -35,7 +35,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     if (disabled) return;
-    onAction?.(actionId)
+    // onAction?.(actionId)
   }, [onAction, actionId, disabled])
 
   const price = useMemo(() => {
@@ -54,6 +54,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
     const end = new Date(reservation.endDate)
     return `${format(start,"PP")} - ${format(end,"PP")}`
   }, [reservation])
+
+  console.log(data.imagesSrc)
 
   return (
     <div onClick={()=>router.push(`listings/${data.id}`)}
@@ -90,14 +92,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
             <div className="font-light">night</div>
           )}
         </div>
-        {onAction && actionLabel && (
+        {/* {onAction && actionLabel && (
           <Button 
           disabled={disabled} 
           small
           label={actionLabel}
           onClick={handleCancel}
           />
-        )}
+        )} */}
       </div>
     </div>
   )

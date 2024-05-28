@@ -1,9 +1,10 @@
 import { SafeUser } from '@/types';
 import React from 'react'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 interface HeartButtonProps {
     listingID:string;
-    currentUser:SafeUser | null
+    currentUser?:SafeUser | null
 }
 
 const HeartButton : React.FC<HeartButtonProps> = ({
