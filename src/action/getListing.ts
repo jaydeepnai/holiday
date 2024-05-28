@@ -2,13 +2,13 @@ import client from "@/libs/prismadb";
 
 export default async function getListings() {
     try {
-        const listing = await client.listing.findmany({
+        const listing = await client.listing.findMany({
             orderBy : {
-                createdAt : "desc"
+                created : "desc"
             }
         })
         return listing
-    } catch (error) {
+    } catch (error:any) {
         throw new Error(error)
     }
 }

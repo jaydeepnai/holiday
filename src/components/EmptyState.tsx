@@ -10,7 +10,7 @@ interface EmptyStateProps {
     showReset?: boolean;
 }
 
-const EmptyState:React.Fc<EmptyStateProps> = ({
+const EmptyState:React.FC<EmptyStateProps> = ({
     title = "No Exact Matches",
     subtitle ="Try Changing or Remove Some Of Your Filter",
     showReset,
@@ -28,7 +28,7 @@ const EmptyState:React.Fc<EmptyStateProps> = ({
       <Heading
       center={true}
       title={title}
-      subtitle={subtitle}
+      subTitle={subtitle}
       />
       <div className="w-48 mt-4">
         {showReset && (<Button outline label="Remove All Filters"

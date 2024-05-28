@@ -7,7 +7,7 @@ import React from 'react'
 const ListingCard = () => {
   return (
     <div>
-      
+      hare krsihna
     </div>
   )
 }

@@ -51,7 +51,7 @@ const Categories = () => {
     const categoryName = params?.get("category")
     const pathName = usePathname()
 
-    const isMainPage = pathName === "/home"
+    const isMainPage = pathName === "/"
 
     if(!isMainPage){
         return null
@@ -60,6 +60,7 @@ const Categories = () => {
   return (
     <Container>
         <div className='
+        category
         pt-2
         px-20
         flex
