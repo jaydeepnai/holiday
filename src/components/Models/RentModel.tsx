@@ -80,10 +80,9 @@ const RentModel = () => {
     if(step !== Steps.PRICE){
       return onNext(); 
     }
-
     setIsLoading(true);
 
-    axios.post('/api/listing',data).then((response) => {
+    axios.post('/api/listings',data).then((response) => {
       toast.success("Listing Created!")
       router.refresh();
       setStep(Steps.CATEGORY)
@@ -238,7 +237,7 @@ const RentModel = () => {
           subTitle="How Do You Charge Per Night?"
         />
           <Input
-          id="pyrice"
+          id="price"
           labal="Price"
           disabled={isLoading}
           type="number"
