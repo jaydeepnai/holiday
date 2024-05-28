@@ -5,9 +5,9 @@ import { SafeUser } from '@/types';
 import { useRouter } from "next/navigation"
 import useCoutries from '@/Hooks/useCountry';
 import {format} from "date-fns"
-import Image from "next/image"
 import HeartButton from './HeartButton';
 import Button from '../Button';
+import Image from 'next/image';
 
 interface ListingCardProps {
   data: Listing;
@@ -64,12 +64,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
     "
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="aspact-square w-full relative overflow-hidden rounded-xl">
-          <Image 
-          fill
+        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+          <Image
+          height={100}
+          width={100}
+          // fill
           alt="Listing"
           src={data.imagesSrc}
-          className="object-cover h-full w-full group-hover:scale-10 transition"
+          className="object-cover group-hover:scale-10 transition"
           />
           <div className="absolute top-3 right-3 ">
             <HeartButton
