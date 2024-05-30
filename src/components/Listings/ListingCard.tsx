@@ -10,7 +10,7 @@ import Button from '../Button';
 import Image from 'next/image';
 
 interface ListingCardProps {
-  data: Listing;
+  data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;

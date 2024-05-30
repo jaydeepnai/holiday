@@ -7,7 +7,11 @@ export default async function getListings() {
                 created : "desc"
             }
         })
-        return listing
+        const safeListing = listing.map((l)=>({
+            ...l,
+            created : l.created.toISOString()
+        }))
+        return safeListing
     } catch (error:any) {
         throw new Error(error)
     }
