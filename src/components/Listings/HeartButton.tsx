@@ -11,7 +11,7 @@ const HeartButton : React.FC<HeartButtonProps> = ({
     listingID,
     currentUser
 }) => {
-    const hasFavorited = false;
+    const hasFavorited = true;
     const toggleFovorited = ()=>{}
 
   return (

@@ -21,8 +21,10 @@ export default async function Home() {
     <ClientOnly>
       <Container>
         <div className="
+        flex
+        flex-wrap
+        flex-row
         pt-24
-        grid
         grid-col-1
         sm:grid-col-2
         md:grid-col-3
