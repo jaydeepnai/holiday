@@ -1,9 +1,13 @@
 import { SafeUser } from "@/types";
 import useLoginModel from "./useLogin";
+import { useCallback, useMemo } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface IUseFoverites {
     listingId: string;
-    currentUser: SafeUser | null
+    currentUser?: SafeUser | null
 }
 
 const useFoverites = ({

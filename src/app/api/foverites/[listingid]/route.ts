@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/action/getCurrentUser"
 import client from "@/libs/prismadb"
+import { NextResponse } from "next/server"
 
 interface IParams {
     listingid?: string
@@ -9,7 +10,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     const currentUser = await getCurrentUser()
 
     if (!currentUser) {
-        return NextResponse.erro()
+        return NextResponse.error()
     }
 
     const { listingid } = params
@@ -18,13 +19,13 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         throw new Error("Invalid ID")
     }
 
-    let foveriteIds = [...(currentUser.favoriteIds || [])]
+    let favoriteIds = [...(currentUser.favoriteIds || [])]
 
-    foveriteIds.push(listingid)
+    favoriteIds.push(listingid)
 
     const user = await client.user.update({
         where: { id: currentUser.id },
-        data: { foveriteIds }
+        data: { favoriteIds }
     })
 
     return NextResponse.json(user)
@@ -36,7 +37,7 @@ export async function DELETE(request: Request, { params }: { params: IParams }) 
     const currentUser = await getCurrentUser()
     
     if (!currentUser) {
-        return NextResponse.erro()
+        return NextResponse.error()
     }
 
     const { listingid } = params
@@ -45,13 +46,13 @@ export async function DELETE(request: Request, { params }: { params: IParams }) 
         throw new Error("Invalid ID")
     }
 
-    let foveriteIds = [...(currentUser.favoriteIds || [])]
+    let favoriteIds = [...(currentUser.favoriteIds || [])]
 
-    foveriteIds = foveriteIds.filter((id)=> id !== listingid)
+    favoriteIds = favoriteIds.filter((id)=> id !== listingid)
 
     const user = await client.user.update({
         where: { id: currentUser.id },
-        data: { foveriteIds }
+        data: { favoriteIds }
     })
 
     return NextResponse.json(user)
