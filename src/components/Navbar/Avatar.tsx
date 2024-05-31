@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 interface AvararProps {
-  src?: string | undefined;
+  src?: string | null;
 }
 
 const Avatar: React.FC<AvararProps> = ({ src }) => {

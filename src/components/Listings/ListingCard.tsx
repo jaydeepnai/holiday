@@ -35,7 +35,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     if (disabled) return;
-    // onAction?.(actionId)
+    onAction?.(actionId)
   }, [onAction, actionId, disabled])
 
   const price = useMemo(() => {
