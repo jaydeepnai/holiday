@@ -20,9 +20,9 @@ export default async function getListingByID({listingId}:IParams) {
             created : listing.created.toISOString(),
             user : {
                 ...listing.user,
-                createdAt:listing.user.createdAt.toISOString(),
-                updatedAt :listing.user.updatedAt.toISOString(),
-                emailVerified:listing.user.emailVerified?.toISOString() || null
+                createdAt:listing?.user?.createdAt?.toISOString(),
+                updatedAt :listing?.user?.updatedAt?.toISOString(),
+                emailVerified:listing.user?.emailVarified?.toISOString() || null
             }
         }
 

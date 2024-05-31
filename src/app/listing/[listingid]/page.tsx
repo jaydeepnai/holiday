@@ -9,7 +9,7 @@ interface IParams {
     listingId ? : string
 }
 
-const ListingPage = (params:IParams) => {
+const ListingPage = async(params:IParams) => {
     const listing = await getListingByID(params)
     const currentUser = await getCurrentUser()
 
