@@ -57,7 +57,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
 
   return (
-    <div onClick={() => router.push(`listings/${data.id}`)}
+    <div onClick={() => router.push(`listing/${data.id}`)}
       className="cursor-pointer flex"
     >
       <div className="flex flex-col">

@@ -6,10 +6,11 @@ import React from 'react'
 import ListingClient from './ListingClient'
 
 interface IParams {
-    listingId ? : string
+    listingid ? : string
 }
 
 const ListingPage = async(params:IParams) => {
+    console.log("params",params)
     const listing = await getListingByID(params)
     const currentUser = await getCurrentUser()
 

@@ -1,13 +1,14 @@
 import client from "@/libs/prismadb"
 
 interface IParams {
-    listingId ? : string
+    listingid ? : string
 }
 
-export default async function getListingByID({listingId}:IParams) {
+export default async function getListingByID(params:IParams) {
+    console.log(params.listingid)
     try {
         const listing = await client.listing.findUnique({
-            where :{id : listingId},
+            where :{id : params.params.listingid},
             include :{user:true},
         })
 
