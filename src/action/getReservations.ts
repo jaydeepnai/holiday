@@ -8,19 +8,18 @@ interface IParams{
 
 export default async function getReservations (params:IParams){
     try {  
-        const {userId,authorId} = params
         const query = {}
     
         if(params.params.listingid){
             query.listingId = params.params.listingid
         }
     
-        if(userId){
-            query.userId = userId
+        if(params.params.userId){
+            query.userId = params.params.userId
         }
     
-        if(authorId){
-            query.listing = {userId : authorId}
+        if(params.params.authorId){
+            query.listing = {userId : params.params.authorId}
         }
     
         const reservations  = await client.reservation.findMany({

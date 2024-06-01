@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/action/getCurrentUser";
 import client from "@/libs/prismadb";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     const currentUser = await getCurrentUser()
