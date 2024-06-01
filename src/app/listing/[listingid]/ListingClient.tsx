@@ -7,7 +7,12 @@ import { CategoriesDetails } from '@/components/Navbar/Categories';
 import Container from '@/components/Navbar/Container';
 import { SafeListing, SafeUser } from '@/types';
 import { Listing, Reservation } from '@prisma/client';
-import React, { useMemo } from 'react'
+import axios from 'axios';
+import { eachDayOfInterval,differenceInCalendarDays } from 'date-fns';
+import { useRouter } from 'next/navigation';
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Range } from 'react-date-range';
+import toast from 'react-hot-toast';
 
 const initialDateRange = {
     startDate: new Date(),
@@ -75,7 +80,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
     useEffect(() => {
       if(dateRange.startDate && dateRange.endDate){
-        const dayCount= differenceInCalenderDays(
+        const dayCount= differenceInCalendarDays(
             dateRange.endDate,
             dateRange.startDate,
         )
