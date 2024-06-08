@@ -3,6 +3,7 @@ import getReservations from '@/action/getReservations'
 import ClientOnly from '@/components/ClientOnly'
 import EmptyState from '@/components/EmptyState'
 import React from 'react'
+import ReservationsClient from './ReservationsClient'
 
 const Page = async() => {
     const currentUser = await getCurrentUser()
@@ -24,16 +25,19 @@ const Page = async() => {
             <ClientOnly>
                 <EmptyState 
                     title="No reservations found"
-                    subtitle="Looks like you  "
+                    subtitle="Looks Like You have No Reservations On Your Property"
                 />
             </ClientOnly>
         )
     }
 
   return (
-    <div>
-      
-    </div>
+    <ClientOnly>
+        <ReservationsClient
+            reservations={reservations}
+            currentUser={currentUser}
+        />
+    </ClientOnly>
   )
 }
 
