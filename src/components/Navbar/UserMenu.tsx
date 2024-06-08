@@ -15,6 +15,7 @@ interface NavbarProps {
 }
 
 export const UserMenu: React.FC<NavbarProps> = ({ CurrentUser }) => {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const RegisterModel = useRegisterModel();
   const RentModel = useRentModel()
@@ -55,7 +56,7 @@ export const UserMenu: React.FC<NavbarProps> = ({ CurrentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {CurrentUser ? (
               <>
-                <MenuItem onclick={RegisterModel.onOpen} label="My Trips" />
+                <MenuItem onclick={()=>router.push("/trips")} label="My Trips" />
                 <MenuItem onclick={LoginModel.onOpen} label="My Favorites" />
                 <MenuItem onclick={LoginModel.onOpen} label="My Reservations" />
                 <MenuItem onclick={LoginModel.onOpen} label="My Properties" />
