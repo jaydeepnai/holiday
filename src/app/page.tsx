@@ -21,6 +21,7 @@ export default async function Home() {
     <ClientOnly>
       <Container>
         <div className="
+        justify-center 
         flex
         flex-wrap
         flex-row
