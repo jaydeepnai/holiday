@@ -1,7 +1,7 @@
 "use client"
 import React, { useCallback, useMemo } from 'react'
 import { Listing, Reservation } from "@prisma/client"
-import { SafeUser } from '@/types';
+import { SafeUser, safeReservation } from '@/types';
 import { useRouter } from "next/navigation"
 import useCoutries from '@/Hooks/useCountry';
 import { format } from "date-fns"
@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 interface ListingCardProps {
   data: SafeListing;
-  reservation?: Reservation;
+  reservation?: safeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
