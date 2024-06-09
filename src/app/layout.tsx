@@ -10,6 +10,7 @@ import LoginModel from "@/components/Models/LoginModel";
 import { getCurrentUser } from "@/action/getCurrentUser";
 import { redirect } from "next/navigation";
 import RentModel from "@/components/Models/RentModel";
+import SearchModel from "@/components/Models/SearchModel";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -31,6 +32,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly >
+          <SearchModel/>
           <RentModel/>
           <RegisterModel/>
           <LoginModel/>
