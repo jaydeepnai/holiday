@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 const Logo = () => {
-  const routerf = useRouter();
+  const router = useRouter();
   // <Image
   //   alt="logo"
   //   className="hidden md:block cursor-pointer"
@@ -13,8 +13,8 @@ const Logo = () => {
   //   src="next.svg"
   // />
   return (
-    <div className="font-bold font-2xl">
-      Let's Holiday
+    <div className="font-bold text-4xl cursor-pointer" onClick={()=>router.push("/")}>
+      It's Holiday
     </div>
   );
 };

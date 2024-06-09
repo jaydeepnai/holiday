@@ -40,7 +40,7 @@ export const UserMenu: React.FC<NavbarProps> = ({ CurrentUser }) => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div onClick={OnRent} className="hidden md:block text:sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          AirBnb Your Home
+          Rent Your Home
         </div>
         <div
           onClick={Toggle}

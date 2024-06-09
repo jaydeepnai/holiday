@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
         ${
           outline
             ? "bg-white border-black text-black"
-            : "bg-rose-500 border-rose-500 text-white"
+            : "bg-blue-500 border-blue-500 text-white"
         }
         ${
           small
@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
         }
         `}
     >
-      {Icon && <Icon size={24} className="absolute left-4 top-3" />}
+      {Icon && <Icon size={24} className="absolute left-4 " />}
       {label}
     </button>
   );
