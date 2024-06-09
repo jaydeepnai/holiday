@@ -5,14 +5,17 @@ import React from "react";
 
 const Logo = () => {
   const routerf = useRouter();
+  // <Image
+  //   alt="logo"
+  //   className="hidden md:block cursor-pointer"
+  //   height={"100"}
+  //   width={"100"}
+  //   src="next.svg"
+  // />
   return (
-    <Image
-      alt="logo"
-      className="hidden md:block cursor-pointer"
-      height={"100"}
-      width={"100"}
-      src="next.svg"
-    />
+    <div className="font-bold font-2xl">
+      Let's Holiday
+    </div>
   );
 };
 

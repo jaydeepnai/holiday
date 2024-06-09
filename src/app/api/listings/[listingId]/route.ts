@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/action/getCurrentUser"
 import client from "@/libs/prismadb"
+import { NextResponse } from "next/server"
 
 interface IParams {
     listingId? :string

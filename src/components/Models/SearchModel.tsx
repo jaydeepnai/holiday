@@ -1,9 +1,15 @@
 "use client"
 import useSearchModel from '@/Hooks/useSearchModel'
-import React from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import Model from './Model'
-import { CoutrySelectValue } from '../CountrySelect'
+import CountrySelect, { CoutrySelectValue } from '../CountrySelect'
 import Calender from '../Input/Calender'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Range } from 'react-date-range'
+import qs from 'query-string'
+import { formatISO } from 'date-fns'
+import Heading from './Heading'
+import Counter from '../Input/Counter'
 
 enum STEPS {
     LOCATION = 0,
@@ -11,21 +17,23 @@ enum STEPS {
     INFO = 2
 }
 
+const initialDateRange = {
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection"
+}
+
 const SearchModel = () => {
     const searchModel = useSearchModel()
     const router = useRouter()
     const params = useSearchParams()
 
-    const [location, setLocation] = useState<CountrySelectValue>()
+    const [location, setLocation] = useState<CoutrySelectValue>()
     const [step, setStep] = useState(STEPS.LOCATION)
     const [guestCount, setGuestCount] = useState(1)
     const [roomCount, setRoomCount] = useState(1)
     const [bathroomCount, setBathroomCount] = useState(1)
-    const [dateRange, setDateRange] = useState<Range>({
-        startDate: new Date(),
-        endDate: new Date(),
-        key: "selection"
-    })
+    const [dateRange, setDateRange] = useState<Range>(initialDateRange)
 
     const onBack = useCallback(() => {
         setStep((values) => values - 1)
@@ -47,7 +55,7 @@ const SearchModel = () => {
 
         const updatedQuery: any = {
             ...query,
-            location: location.value,
+            location: location?.value,
             guestCount,
             roomCount,
             bathroomCount,
@@ -61,7 +69,7 @@ const SearchModel = () => {
             updatedQuery.endDate = formatISO(dateRange.endDate)
         }
 
-        const url = qs.stringfyUrl({
+        const url = qs.stringifyUrl({
             url: '/',
             query: updatedQuery
         }, { skipNull: true })
@@ -124,14 +132,14 @@ const SearchModel = () => {
                     subTitle="Make sure everyone is free !"
                 />
                 <Calender
-                    value={dateRange}
+                    values={dateRange}
                     onChange={(value)=>setDateRange(value.selection)}
                 />
             </div>
         );
     }
 
-    if (step == Steps.INFO) {
+    if (step == STEPS.INFO) {
         body = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -160,72 +168,6 @@ const SearchModel = () => {
         );
     }
 
-    if (step == Steps.IMAGES) {
-        body = (
-            <div className="flex flex-col gap-8">
-                <Heading
-                    title="Add Photo of Your Place"
-                    center={false}
-                    subTitle="Show Your Place Please?"
-                />
-                <ImageUpload value={ImageSrc}
-                    onChange={(value) => {
-                        setCustomValue("imageSrc", value);
-                    }}
-                />
-            </div>
-        )
-    }
-
-    if (step == Steps.DESCRIPTION) {
-        body = (
-            <div className="flex flex-col gap-8">
-                <Heading
-                    title="Would You like to Describe Your Place ?"
-                    center={false}
-                    subTitle="Short and Sweet Works Best!?"
-                />
-                <Input
-                    id="title"
-                    labal="Title"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
-                />
-                <Input
-                    id="description"
-                    labal="Description"
-                    disabled={isLoading}
-                    register={register}
-                    errors={errors}
-                    required
-                />
-            </div>
-        )
-    }
-
-    if (step == Steps.PRICE) {
-        body = (
-            <div className="flex flex-col gap-8">
-                <Heading
-                    title="Please Set-Up Your Price ?"
-                    center={false}
-                    subTitle="How Do You Charge Per Night?"
-                />
-                <Input
-                    id="price"
-                    labal="Price"
-                    disabled={isLoading}
-                    type="number"
-                    register={register}
-                    errors={errors}
-                    required
-                />
-            </div>
-        )
-    }
-
     let footer = (
         <div className="flex flex-col gap-4 mt-3">
             <hr />
@@ -235,13 +177,14 @@ const SearchModel = () => {
 
 
     return (
-        <Modelfirst isOpen={searchModel.isOpen}
+        <Model
+            isOpen={searchModel.isOpen}
             onClose={searchModel.onClose}
-            onSubmit={searchModel.onOpen}
+            onSubmit={onSubmit}
             title="Filters"
             actionLabel={actionLabel}
             secoundaryActionLabel={secoundaryActionLabel}
-            secoundaryAction={step === STEPS.LOCATION ? undefined : onBack}
+            secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
             body={body}
         />
     )

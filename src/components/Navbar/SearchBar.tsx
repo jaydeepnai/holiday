@@ -8,7 +8,7 @@ const SearchBar = () => {
 
   return (
     <div
-      onClike={searchModel.onOpen}
+      onClick={searchModel.onOpen}
       className="
         border-[1px]
         w-full
