@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/action/getCurrentUser"
 import client from "@/libs/prismadb"
+import { NextResponse } from "next/server"
 
  interface IParams{
     reseravationId ? : string
@@ -24,4 +25,7 @@ import client from "@/libs/prismadb"
             {listing : {userId : currentUser.id}}
         ] }
     })
+
+    return NextResponse.json({message:"Deletion Successful"})
+
  }

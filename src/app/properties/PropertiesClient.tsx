@@ -3,7 +3,10 @@ import ListingCard from '@/components/Listings/ListingCard'
 import Heading from '@/components/Models/Heading'
 import Container from '@/components/Navbar/Container'
 import { SafeListing, SafeUser } from '@/types'
-import React from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import React, { useCallback, useState } from 'react'
+import toast from 'react-hot-toast'
 
 interface PropertiesClientProps {
     listings: SafeListing[],
@@ -14,7 +17,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     listings,
     currentUser
 }) => {
-    const router = userRouter()
+    const router = useRouter()
     const [deleteId, setDeleteId] = useState("")
 
     const onCencel = useCallback((id: string) => {
@@ -36,7 +39,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
         <Container>
             <Heading
                 title="Properties"
-                subtitle="List of your Properties"
+                subTitle="List of your Properties"
             />
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
                 {

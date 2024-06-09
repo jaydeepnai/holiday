@@ -9,6 +9,7 @@ import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/types";
 import useRentModel from "@/Hooks/useRent";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   CurrentUser?: SafeUser | null;

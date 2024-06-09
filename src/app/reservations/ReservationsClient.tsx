@@ -1,8 +1,12 @@
 "use client"
 import ListingCard from '@/components/Listings/ListingCard';
+import Heading from '@/components/Models/Heading';
 import Container from '@/components/Navbar/Container';
 import { SafeUser, safeReservation } from '@/types'
-import React from 'react'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useCallback, useState } from 'react'
+import toast from 'react-hot-toast';
 
 interface ReservationsClientProps {
     reservations: safeReservation[];
@@ -34,7 +38,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
         <Container>
             <Heading
                 title="Reservations"
-                subtitle="Bookings On Your Properties"
+                subTitle="Bookings On Your Properties"
             />
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
                 {reservations.map((r)=>(

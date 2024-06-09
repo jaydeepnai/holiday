@@ -12,7 +12,7 @@ export default async function getListings(
 
         let query : any = {}
 
-        if(user){
+        if(userId){
             query.userId = userId
         }
 
