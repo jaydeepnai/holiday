@@ -59,7 +59,7 @@ export const UserMenu: React.FC<NavbarProps> = ({ CurrentUser }) => {
                 <MenuItem onclick={()=>router.push("/trips")} label="My Trips" />
                 <MenuItem onclick={()=>router.push("/favorites")} label="My Favorites" />
                 <MenuItem onclick={()=>router.push("/reservations")} label="My Reservations" />
-                <MenuItem onclick={LoginModel.onOpen} label="My Properties" />
+                <MenuItem onclick={()=>router.push("/properties")} label="My Properties" />
                 <MenuItem
                   onclick={RentModel.onClose}
                   label="My Airbnb My House"

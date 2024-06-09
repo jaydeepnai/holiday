@@ -1,8 +1,23 @@
 import client from "@/libs/prismadb";
 
-export default async function getListings() {
+export interface IListingParams {
+    userId?:string
+} 
+
+export default async function getListings(
+    params : IListingParams
+) {
     try {
+        const { userId } = params;
+
+        let query : any = {}
+
+        if(user){
+            query.userId = userId
+        }
+
         const listing = await client.listing.findMany({
+            where : query,
             orderBy : {
                 created : "desc"
             }
