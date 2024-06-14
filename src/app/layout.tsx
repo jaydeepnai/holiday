@@ -12,6 +12,8 @@ import { getCurrentUser } from "@/action/getCurrentUser";
 import { redirect, usePathname } from "next/navigation";
 import RentModel from "@/components/Models/RentModel";
 import SearchModel from "@/components/Models/SearchModel";
+import { headers } from "next/headers";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,13 +30,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user = await getCurrentUser()
-  // const path  = usePathname()
-  // console.log(path)
+  const headersList = headers();
+console.log(headersList)
   return (
     <html lang="en">
       <body className={font.className}>
-        {/* {}
-        {children} */}
+
         <ClientOnly >
           <SearchModel/>
           <RentModel/>
@@ -50,38 +51,3 @@ export default async function RootLayout({
     </html>
   );
 }
-
-
-
-// 'use client'
-// import { Space_Grotesk } from 'next/font/google'
-// import {  usePathname } from 'next/navigation'
-
-// const space_grotesk = Space_Grotesk({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-space-grotesk',
-// })
-
-// export default function RootLayout({ children }: { children: React.ReactNode }) {
-//   const pathname = usePathname()
-//   return (
-//     <html className={`${space_grotesk.variable} scroll-smooth`} suppressHydrationWarning>
-//       <link rel="manifest" href="/static/favicons/site.webmanifest" />
-//       <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
-//       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
-//       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
-//       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
-//         {(pathname == '/signin' || pathname == '/signup') ? (
-//           <>{children}</>
-//         ):( 
-//           <section className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-//               <div className="flex h-screen flex-col justify-between font-sans">
-//                 <main className="mb-auto">{children}</main>
-//               </div>
-//           </section>
-//         ) }
-//       </body>
-//     </html>
-//   )
-// }

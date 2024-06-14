@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/home', request.url));
-  }
-  return NextResponse.next();
+export function middleware(request: Request) {
+console.log("hi")
+  // Store current request url in a custom header, which you can read later
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-url', request.url);
+
+  return NextResponse.next({
+    request: {
+      // Apply new request headers
+      headers: requestHeaders,
+    }
+  });
 }
-
-// Specify the paths to match
-export const config = {
-  matcher: '/',
-};
