@@ -63,9 +63,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
       <div className="flex flex-col">
         <div className="relative overflow-hidden rounded-xl">
           <Image
-            height={300}
-            width={300}
-            // fill
+          width={300}
+          height={300}
+            style={{
+              height:"200px",
+              width:"200px",
+            }}
             alt="Listing"
             src={data.imagesSrc}
             className="object-cover group-hover:scale-10 transition border-cyan-50 border-2"
